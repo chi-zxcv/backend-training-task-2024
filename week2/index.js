@@ -28,7 +28,7 @@ console.log(g * h === 64); //true
 
 let i = "9";
 let j = "9";
-console.log(i + j == 99); //false. => 這要注意
+console.log(i + j == 99); //true
 console.log(i + j === "99"); //true
 console.log(i + j === 99); //false
 
@@ -77,9 +77,9 @@ let coachIncome = 240000; // 小明全年業績
 let baseBonus = 6000; // 基本獎金
 let coachBonus = baseBonus; // 教練業績獎金帳單，並已加入條件一基本獎金
 
-if (coachIncome < 100000) {
+if (coachIncome <= 100000) {
   coachBonus += coachIncome * 0.1;
-} else if (coachIncome < 300000) {
+} else if (coachIncome <= 300000) {
   coachBonus += coachIncome * 0.15;
 } else {
   coachBonus += coachIncome * 0.2;
@@ -131,41 +131,45 @@ if (
 */
 
 const gymCoach = {
-  王教練: {
-    專長: ["力量訓練", "減重課程"],
-    課程: {
-      個人訓練課程: {
-        收費: 2000,
-        時長: 60,
-        是否有空堂: true,
+  coach王教練: {
+    specialties: ["力量訓練", "減重課程"],
+    courses: {
+      personalTraining: {
+        fee: 2000,
+        time: 60,
+        availability: true,
       },
-      團體訓練課程: {
-        收費: 1500,
+      teamTraining: {
+        fee: 1500,
         時長: 90,
-        是否有空堂: false,
+        availability: false,
       },
     },
-    背景介紹:
+    sescription:
       "王教練擁有 5 年教學經驗，專精於提升學員的肌力與減脂，適合希望快速達成體能目標的學員。",
-    是否接收新學員: true,
+    acceptStudent: true,
+    name: "高雄市健身教練聯盟",
+    location: "高雄市",
   },
-  李教練: {
-    專長: ["瑜伽", "體態雕塑"],
-    課程: {
-      個人訓練課程: {
-        收費: 1800,
-        時長: 50,
-        是否有空堂: false,
+  coach李教練: {
+    specialties: ["瑜伽", "體態雕塑"],
+    courses: {
+      personalTraining: {
+        fee: 1800,
+        time: 50,
+        availability: false,
       },
-      團體訓練課程: {
-        收費: 1200,
-        時長: 75,
-        是否有空堂: true,
+      teamTraining: {
+        fee: 1200,
+        time: 75,
+        availability: true,
       },
     },
-    背景介紹:
+    sescription:
       "李教練是一位瑜伽大師，擁有 10 年教學經驗，擅長幫助學員雕塑完美體態，適合希望改善姿態與柔軟度的學員。",
-    是否接收新學員: false,
+    acceptStudent: false,
+    name: "高雄市健身教練聯盟",
+    location: "高雄市",
   },
 };
 
@@ -191,15 +195,17 @@ let performanceData = {
 };
 
 // 練習：第一位教練（可將下方程式碼註解移除，完成答題）
-
+let earnPrice = 0;
 if (
   performanceData.coaches[0].performance <
   targetPrice /* 判斷邏輯，使其為 true */
 ) {
   // 請填寫第一位教練業績增長程式碼，使用 +=
-  let needPrice = targetPrice - performanceData.coaches[0].performance;
+  let earnPrice = +performanceData.coaches[0].performance;
   console.log(
-    `${performanceData.coaches[0].name} 教練還需要增長 $${needPrice} `
+    `${performanceData.coaches[0].name} 教練還需要增長 $${
+      targetPrice - earnPrice
+    } `
   );
 }
 
@@ -210,9 +216,11 @@ if (
   targetPrice /* 判斷邏輯，使其為 true */
 ) {
   // 請填寫第二位教練業績增長程式碼，使用 +=
-  let needPrice = targetPrice - performanceData.coaches[1].performance;
+  let earnPrice = +performanceData.coaches[1].performance;
   console.log(
-    `${performanceData.coaches[1].name} 教練還需要增長 $${needPrice} `
+    `${performanceData.coaches[1].name} 教練還需要增長 $${
+      targetPrice - earnPrice
+    } `
   );
 }
 
@@ -226,14 +234,17 @@ console.log(performanceData);
   - 騎腳踏車每分鐘消耗 8 卡
 */
 const activities = {
-  跑步機: {
-    每分鐘消耗卡路里: 10,
+  run: {
+    name: "跑步機",
+    caloriesPerMinute: 10,
   },
-  瑜伽: {
-    每分鐘消耗卡路里: 5,
+  yoga: {
+    name: "瑜伽",
+    caloriesPerMinute: 5,
   },
-  騎腳踏車: {
-    每分鐘消耗卡路里: 8,
+  cycling: {
+    name: "騎腳踏車",
+    caloriesPerMinute: 8,
   },
 }; // 練習：使用 `物件包含物件` 的格式定義運動類型與每分鐘消耗卡路里
 
@@ -243,9 +254,10 @@ const activities = {
 // 小明今天騎了 10 分鐘的腳踏車去健身房，並先跑了 30 分鐘的跑步機熱身，最後再參加了 40 分鐘的瑜伽團課，最後再騎 10 分鐘腳踏車回家。
 
 let calorieBurn = 0;
-calorieBurn += activities.騎腳踏車.每分鐘消耗卡路里 * 10;
-calorieBurn += activities.跑步機.每分鐘消耗卡路里 * 30;
-calorieBurn += activities.瑜伽.每分鐘消耗卡路里 * 40;
+calorieBurn += activities.cycling.caloriesPerMinute * 10;
+calorieBurn += activities.run.caloriesPerMinute * 30;
+calorieBurn += activities.yoga.caloriesPerMinute * 40;
+calorieBurn += activities.cycling.caloriesPerMinute * 10;
 // 練習：計算小明今日消耗的卡路里
 
 console.log(`小明今日一共消耗約 ${calorieBurn} 卡路里。`);
