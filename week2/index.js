@@ -174,6 +174,8 @@ const gymCoach = {
 };
 
 console.log(gymCoach);
+console.log(gymCoach.coach王教練.location);
+console.log(gymCoach.coach王教練.name);
 
 // ### 題目七：
 // 主管要求健身中心的兩位教練業績都需達到 50,000元
@@ -216,7 +218,7 @@ if (
   targetPrice /* 判斷邏輯，使其為 true */
 ) {
   // 請填寫第二位教練業績增長程式碼，使用 +=
-  let earnPrice = +performanceData.coaches[1].performance;
+  let earnPrice = performanceData.coaches[1].performance;
   console.log(
     `${performanceData.coaches[1].name} 教練還需要增長 $${
       targetPrice - earnPrice
